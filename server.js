@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-const API_BASE = "https://fakestoreapi.com";  // FIXED ✔
+const API_BASE = "https://dummyjson.com";  // FIXED ✔
 
 app.use(cors());
 app.use(express.json());
