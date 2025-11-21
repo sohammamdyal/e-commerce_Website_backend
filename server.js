@@ -9,13 +9,17 @@ const API_BASE = "https://fakestoreapi.com";  // FIXED ✔
 app.use(cors());
 app.use(express.json());
 
+const axiosConfig = {
+  headers: { "User-Agent": "Mozilla/5.0" }
+};
+
 // Products list
 app.get('/api/products', async (req, res) => {
     try {
       const { category, sort } = req.query;
   
       // Fetch all products
-      const response = await axios.get(`${API_BASE}/products`);
+      const response = await axios.get(`${API_BASE}/products`, axiosConfig);
       let products = response.data;
   
       // 1. FILTER BY CATEGORY
@@ -44,7 +48,7 @@ app.get('/api/products', async (req, res) => {
 // Single product
 app.get("/api/products/:id", async (req, res) => {
   try {
-    const response = await axios.get(`${API_BASE}/products/${req.params.id}`);
+    const response = await axios.get(`${API_BASE}/products/${req.params.id}`, axiosConfig);
     res.json(response.data);
   } catch (err) {
     res.status(500).json({ error: "Error fetching product" });
@@ -54,7 +58,7 @@ app.get("/api/products/:id", async (req, res) => {
 // Categories
 app.get("/api/categories", async (req, res) => {
     try {
-      const response = await axios.get(`${API_BASE}/products/categories`);
+      const response = await axios.get(`${API_BASE}/products/categories`, axiosConfig);
       res.json(response.data);  // returns ["electronics","jewelery","mens clothing","womens clothing"]
     } catch (err) {
       console.error("CATEGORY ERROR:", err.message);
